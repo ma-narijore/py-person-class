@@ -9,25 +9,25 @@ class Person:
 
 def create_person_list(people: list) -> list:
     # 1️⃣ Створюємо всіх людей
-    for pers in people:
-        Person(pers["name"], pers["age"])
+    for person_dict in people:
+        Person(person_dict["name"], person_dict["age"])
 
     # 2️⃣ Встановлюємо зв’язки
-    for pers in people:
-        person = Person.people[pers["name"]]
+    for person_dict in people:
+        person = Person.people[person_dict["name"]]
 
         # якщо є дружина — встановлюємо
-        if "wife" in pers and pers["wife"]:
-            person.wife = Person.people.get(pers["wife"])
-            Person.people[pers["wife"]].husband = person
+        if "wife" in person_dict and person_dict["wife"]:
+            person.wife = Person.people.get(person_dict["wife"])
+            Person.people[person_dict["wife"]].husband = person
 
         # якщо є чоловік — встановлюємо
-        if "husband" in pers and pers["husband"]:
-            person.husband = Person.people.get(pers["husband"])
-            Person.people[pers["husband"]].wife = person
+        if "husband" in person_dict and person_dict["husband"]:
+            person.husband = Person.people.get(person_dict["husband"])
+            Person.people[person_dict["husband"]].wife = person
 
     # 3️⃣ Повертаємо список
-    return list(Person.people.values())
+    return [Person.people[d.get("name")] for d in people]
 
 
 # people = [
